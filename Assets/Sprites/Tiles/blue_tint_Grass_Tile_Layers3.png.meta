@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 2d5ddda8db0a5431bbbacd0dc6382065
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7093746404308582505
+    second: blue_tint_Grass_Tile_Layers3_0
+  - first:
+      213: 5173583190502136536
+    second: blue_tint_Grass_Tile_Layers3_1
+  - first:
+      213: -5876981180263028357
+    second: blue_tint_Grass_Tile_Layers3_2
+  - first:
+      213: 7997951706938767323
+    second: blue_tint_Grass_Tile_Layers3_3
+  - first:
+      213: -953512053356892972
+    second: blue_tint_Grass_Tile_Layers3_4
+  - first:
+      213: 9121671019416841458
+    second: blue_tint_Grass_Tile_Layers3_5
+  - first:
+      213: 4090093867679678756
+    second: blue_tint_Grass_Tile_Layers3_6
+  - first:
+      213: 2682468345917608715
+    second: blue_tint_Grass_Tile_Layers3_7
+  - first:
+      213: 7477541365715167028
+    second: blue_tint_Grass_Tile_Layers3_8
+  - first:
+      213: -4648475767397679441
+    second: blue_tint_Grass_Tile_Layers3_9
+  - first:
+      213: 8775960589232395274
+    second: blue_tint_Grass_Tile_Layers3_10
+  - first:
+      213: -5462304794180931495
+    second: blue_tint_Grass_Tile_Layers3_11
+  - first:
+      213: -6234945896995725468
+    second: blue_tint_Grass_Tile_Layers3_12
+  - first:
+      213: -781896253042332235
+    second: blue_tint_Grass_Tile_Layers3_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 960848b35cc027260800000000000000
+      internalID: 7093746404308582505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 336
+        width: 46
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dadfcd30824cc740800000000000000
+      internalID: 5173583190502136536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_2
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 352
+        width: 16
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7924ce01c4c07ea0800000000000000
+      internalID: -5876981180263028357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_3
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 336
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd770d6d3be6efe60800000000000000
+      internalID: 7997951706938767323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_4
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 335
+        width: 49
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dceb92e6d174c2f0800000000000000
+      internalID: -953512053356892972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_5
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 336
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fce056a67fa69e70800000000000000
+      internalID: 9121671019416841458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_6
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 319
+        width: 64
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4210d01d3bee2c830800000000000000
+      internalID: 4090093867679678756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_7
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 255
+        width: 49
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0316af8fba0a3520800000000000000
+      internalID: 2682468345917608715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_8
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 274
+        width: 44
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 437edb0214095c760800000000000000
+      internalID: 7477541365715167028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_9
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 275
+        width: 12
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faeff311beb4d7fb0800000000000000
+      internalID: -4648475767397679441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_10
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 258
+        width: 60
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a04560ca8a97ac970800000000000000
+      internalID: 8775960589232395274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_11
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 258
+        width: 42
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 950beefeabef134b0800000000000000
+      internalID: -5462304794180931495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_12
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 259
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46f5ac7adb50979a0800000000000000
+      internalID: -6234945896995725468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: blue_tint_Grass_Tile_Layers3_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 161
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bde33220852625f0800000000000000
+      internalID: -781896253042332235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      blue_tint_Grass_Tile_Layers3_0: 7093746404308582505
+      blue_tint_Grass_Tile_Layers3_1: 5173583190502136536
+      blue_tint_Grass_Tile_Layers3_10: 8775960589232395274
+      blue_tint_Grass_Tile_Layers3_11: -5462304794180931495
+      blue_tint_Grass_Tile_Layers3_12: -6234945896995725468
+      blue_tint_Grass_Tile_Layers3_13: -781896253042332235
+      blue_tint_Grass_Tile_Layers3_2: -5876981180263028357
+      blue_tint_Grass_Tile_Layers3_3: 7997951706938767323
+      blue_tint_Grass_Tile_Layers3_4: -953512053356892972
+      blue_tint_Grass_Tile_Layers3_5: 9121671019416841458
+      blue_tint_Grass_Tile_Layers3_6: 4090093867679678756
+      blue_tint_Grass_Tile_Layers3_7: 2682468345917608715
+      blue_tint_Grass_Tile_Layers3_8: 7477541365715167028
+      blue_tint_Grass_Tile_Layers3_9: -4648475767397679441
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
