@@ -1,6 +1,6 @@
 # Juego de II Parcial de Lenguajes de Programación
 
-**Materia:** Lenguajes de Programación | **Periodo:** 2026-1 | **Estado:** En Progreso
+**Materia:** Lenguajes de Programación | **Periodo:** 2026-1 | **Estado:** En Progreso | **Versión de Unity**: Unity 6.5 (6000.5.3f1)
 
 ## Equipo de trabajo
 
