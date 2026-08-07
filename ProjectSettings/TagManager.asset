@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Personajes
+    uniqueID: 1512297667
+    locked: 0
+  - name: Fondo
+    uniqueID: 789253515
+    locked: 0
+  - name: Suelo
+    uniqueID: 3579986213
+    locked: 0
+  - name: Objetos
+    uniqueID: 2405901745
+    locked: 0
+  - name: Personajes
+    uniqueID: 438534329
+    locked: 0
+  - name: Efectos
+    uniqueID: 1517823785
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  m_MigratedRenderPipelines: []
