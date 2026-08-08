@@ -25,11 +25,24 @@ public class MenuPrincipal : MonoBehaviour
              "y el gatito. Se mantienen ocultos durante la narracion.")]
     [SerializeField] private GameObject mundoMenu;
 
+    [Header("Aparicion de los botones")]
+    [Tooltip("Componente AparecerDeslizando del GrupoBotones. Va aparte del titulo " +
+             "para que los botones entren despues. La opacidad inicial y el " +
+             "desplazamiento se configuran en ese componente, no aqui.")]
+    [SerializeField] private AparecerDeslizando aparicionBotones;
+
+    [Tooltip("Segundos que tardan los botones en aparecer una vez visible el menu.")]
+    [SerializeField] private float retrasoBotones = 3f;
+
     [Header("Escenas")]
     [SerializeField] private string escenaPrimerMinijuego = "JuegoTopDown";
 
     [Header("Pruebas")]
-    [Tooltip("Fuerza la narracion aunque ya se haya visto. Util mientras desarrollas.")]
+    [Tooltip("SALTA la narracion y entra directo al menu. Para iterar sobre el " +
+             "menu sin tragarte la historia entera cada vez. ACUERDATE DE APAGARLO.")]
+    [SerializeField] private bool saltarNarracion = false;
+
+    [Tooltip("Narra SIEMPRE, aunque ya se haya visto al volver de un minijuego.")]
     [SerializeField] private bool siempreNarrar = false;
 
     // static: sobrevive a los cambios de escena dentro de una misma partida.
@@ -51,7 +64,7 @@ public class MenuPrincipal : MonoBehaviour
 
     private void Start()
     {
-        if (yaSeVioLaNarracion && !siempreNarrar)
+        if (saltarNarracion || (yaSeVioLaNarracion && !siempreNarrar))
         {
             panelNarracion.SetActive(false);
             MostrarMenu();
@@ -113,6 +126,20 @@ public class MenuPrincipal : MonoBehaviour
         yaSeVioLaNarracion = true;
         if (mundoMenu != null) mundoMenu.SetActive(true);
         panelMenu.SetActive(true);
+
+        if (aparicionBotones != null)
+        {
+            // Los dejamos invisibles, desplazados y sin poder recibir clicks
+            // hasta que terminen de entrar. Asi nadie le da a un boton fantasma.
+            aparicionBotones.Preparar();
+            StartCoroutine(AparecerBotones());
+        }
+    }
+
+    private System.Collections.IEnumerator AparecerBotones()
+    {
+        yield return new WaitForSeconds(retrasoBotones);
+        aparicionBotones.Aparecer();
     }
 
     // --- Metodos para enganchar a los botones (OnClick del Inspector) ---
