@@ -28,6 +28,10 @@ public class SpawnerEnemigos : MonoBehaviour
     [Tooltip("Si aparecen por el area, no los pone mas cerca que esto del gatito.")]
     [SerializeField] private float distanciaMinimaDelJugador = 6f;
 
+    [Tooltip("Separacion minima entre enemigos al nacer, para que no salgan " +
+             "amontonados. Igual que la separacion entre monedas.")]
+    [SerializeField] private float separacionEntreEnemigos = 4f;
+
     [Header("Ritmo")]
     [Tooltip("Segundos antes del primer enemigo.")]
     [SerializeField] private float esperaInicial = 2f;
@@ -45,10 +49,29 @@ public class SpawnerEnemigos : MonoBehaviour
     [Tooltip("Tope de enemigos vivos a la vez. Evita que la pantalla se sature.")]
     [SerializeField] private int maximoVivos = 8;
 
+    [Header("Reciclado")]
+    [Tooltip("Como nada mata a los enemigos, sin esto se acumulan hasta el tope " +
+             "y el spawner se calla para siempre. Un enemigo que lleva mucho rato " +
+             "lejos del gatito se retira y deja su sitio libre.\n\n" +
+             "Ponlo en 0 para desactivarlo y que no desaparezca ninguno.")]
+    [SerializeField] private float segundosLejosParaRetirarse = 8f;
+
+    [Tooltip("A partir de que distancia se considera que esta lejos. Ponlo mas " +
+             "grande que media pantalla o el jugador vera enemigos esfumarse " +
+             "delante de sus narices.")]
+    [SerializeField] private float distanciaParaRetirarse = 14f;
+
     /// <summary>Cuantos enemigos hay ahora mismo en la arena.</summary>
     public int Vivos => vivos.Count;
 
-    private readonly List<Enemigo> vivos = new List<Enemigo>();
+    // Cada enemigo con el tiempo que lleva seguido lejos del gatito.
+    private class Vigilado
+    {
+        public Enemigo enemigo;
+        public float segundosLejos;
+    }
+
+    private readonly List<Vigilado> vivos = new List<Vigilado>();
     private Transform jugador;
     private float intervalo;
     private bool activo = true;
@@ -75,21 +98,27 @@ public class SpawnerEnemigos : MonoBehaviour
         {
             LimpiarMuertos();
 
-            if (vivos.Count < maximoVivos) Aparecer();
+            bool salio = vivos.Count < maximoVivos && Aparecer();
 
-            yield return new WaitForSeconds(intervalo);
+            // Si no salio (no habia sitio libre, o esta lleno) no se gasta el
+            // intervalo entero esperando: se reintenta enseguida. Antes se
+            // perdia el ciclo completo y se notaba como un hueco sin enemigos.
+            yield return new WaitForSeconds(salio ? intervalo : Mathf.Min(intervalo, 0.5f));
 
-            intervalo = Mathf.Max(intervaloMinimo, intervalo * factorDeAceleracion);
+            // El ritmo solo acelera cuando de verdad aparecio alguien.
+            if (salio) intervalo = Mathf.Max(intervaloMinimo, intervalo * factorDeAceleracion);
         }
     }
 
-    private void Aparecer()
+    /// <summary>Devuelve true si consiguio sacar un enemigo.</summary>
+    private bool Aparecer()
     {
-        if (!BuscarSitio(out Vector3 sitio)) return;
+        if (!BuscarSitio(out Vector3 sitio)) return false;
 
         var prefab = prefabsEnemigo[Random.Range(0, prefabsEnemigo.Length)];
         var enemigo = Instantiate(prefab, sitio, Quaternion.identity, transform);
-        vivos.Add(enemigo);
+        vivos.Add(new Vigilado { enemigo = enemigo });
+        return true;
     }
 
     private bool BuscarSitio(out Vector3 sitio)
@@ -102,7 +131,20 @@ public class SpawnerEnemigos : MonoBehaviour
         }
 
         if (area != null)
-            return area.PuntoLibreAleatorio(out sitio, distanciaMinimaDelJugador, jugador);
+        {
+            // Varios intentos: el area sabe evitar los muros y al gatito, pero
+            // no sabe nada de los otros enemigos. Eso se comprueba aqui.
+            for (int intento = 0; intento < 20; intento++)
+            {
+                if (!area.PuntoLibreAleatorio(out sitio, distanciaMinimaDelJugador, jugador))
+                    break;
+
+                if (!HayOtroEnemigoCerca(sitio)) return true;
+            }
+
+            sitio = transform.position;
+            return false;
+        }
 
         Debug.LogWarning("[SpawnerEnemigos] Sin puntos de aparicion ni AreaJugable, " +
                          "no se donde poner al enemigo.", this);
@@ -110,11 +152,57 @@ public class SpawnerEnemigos : MonoBehaviour
         return false;
     }
 
+    private bool HayOtroEnemigoCerca(Vector3 sitio)
+    {
+        if (separacionEntreEnemigos <= 0f) return false;
+
+        foreach (var v in vivos)
+            if (v.enemigo != null &&
+                Vector3.Distance(v.enemigo.transform.position, sitio) < separacionEntreEnemigos)
+                return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Retira a los que llevan mucho rato lejos, para que el spawner no se
+    /// quede atascado en el tope y siga habiendo movimiento toda la partida.
+    /// Se comprueba lejos de la camara, asi que el jugador nunca ve a nadie
+    /// desaparecer de golpe.
+    /// </summary>
+    private void Update()
+    {
+        if (jugador == null || segundosLejosParaRetirarse <= 0f) return;
+
+        for (int i = vivos.Count - 1; i >= 0; i--)
+        {
+            var v = vivos[i];
+
+            if (v.enemigo == null) { vivos.RemoveAt(i); continue; }
+
+            float distancia = Vector2.Distance(v.enemigo.transform.position, jugador.position);
+
+            if (distancia < distanciaParaRetirarse)
+            {
+                v.segundosLejos = 0f;
+                continue;
+            }
+
+            v.segundosLejos += Time.deltaTime;
+
+            if (v.segundosLejos >= segundosLejosParaRetirarse)
+            {
+                Destroy(v.enemigo.gameObject);
+                vivos.RemoveAt(i);
+            }
+        }
+    }
+
     // Los destruidos quedan como null en la lista; hay que sacarlos o el tope
     // de vivos deja de funcionar.
     private void LimpiarMuertos()
     {
-        vivos.RemoveAll(e => e == null);
+        vivos.RemoveAll(v => v.enemigo == null);
     }
 
     /// <summary>Para de generar. Llamalo al ganar o al perder.</summary>
