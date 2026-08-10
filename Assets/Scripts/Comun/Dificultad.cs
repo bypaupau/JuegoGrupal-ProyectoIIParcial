@@ -102,6 +102,19 @@ public class ValorPorDificultad
     [Tooltip("Valor que se usa en el nivel Dificil.")]
     [SerializeField] private int dificil = 10;
 
+    public ValorPorDificultad() { }
+
+    /// <summary>
+    /// Para dar valores por defecto distintos de 5 y 10 al declarar el campo.
+    /// Unity respeta este inicializador la primera vez que aparece el campo,
+    /// asi que en el Inspector ya salen puestos sin escribirlos a mano.
+    /// </summary>
+    public ValorPorDificultad(int facil, int dificil)
+    {
+        this.facil = facil;
+        this.dificil = dificil;
+    }
+
     /// <summary>El valor que toca segun la dificultad elegida.</summary>
     public int Actual => Dificultad.Nivel == NivelDeDificultad.Facil ? facil : dificil;
 

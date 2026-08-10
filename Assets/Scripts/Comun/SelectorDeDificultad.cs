@@ -28,6 +28,11 @@ public class SelectorDeDificultad : MonoBehaviour
              "y la duracion se configuran en ese componente, no aqui.")]
     [SerializeField] private AparecerDeslizando aparicion;
 
+    [Header("Partida")]
+    [Tooltip("Vidas con las que arranca el gatito. Son para toda la aventura: " +
+             "las mismas en el Catcher y en el laberinto.")]
+    [SerializeField] private ValorPorDificultad vidasIniciales = new ValorPorDificultad(5, 3);
+
     [Header("A donde va despues")]
     [Tooltip("Escena del primer minijuego. Tiene que estar en File > Build Profiles.")]
     [SerializeField] private string escenaSiguiente = "JuegoTopDown";
@@ -76,7 +81,12 @@ public class SelectorDeDificultad : MonoBehaviour
 
     private void Elegir(NivelDeDificultad nivel)
     {
+        // Este orden importa: vidasIniciales.Actual lee el nivel elegido, asi
+        // que la dificultad tiene que estar puesta antes de arrancar la partida.
         Dificultad.Elegir(nivel);
+        Partida.Comenzar(vidasIniciales.Actual);
+
+        Debug.Log($"[SelectorDeDificultad] Partida nueva en {nivel} con {Partida.Vidas} vidas.");
 
         if (!cargarEscenaAlElegir) return;
 
