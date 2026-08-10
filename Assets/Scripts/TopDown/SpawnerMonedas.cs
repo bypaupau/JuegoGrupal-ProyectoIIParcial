@@ -110,6 +110,10 @@ public class SpawnerMonedas : MonoBehaviour
         Recogidas++;
         puntaje += moneda.Puntos;
 
+        // Tambien al marcador compartido: el puntaje se acumula entre los dos
+        // minijuegos, asi que lo que sumes aqui viaja al Catcher y al reves.
+        Partida.Sumar(moneda.Puntos);
+
         AlCambiarCuenta?.Invoke(Recogidas, cantidad);
 
         if (Recogidas >= cantidad)
