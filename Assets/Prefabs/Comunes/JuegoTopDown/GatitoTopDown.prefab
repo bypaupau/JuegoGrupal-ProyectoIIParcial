@@ -50,10 +50,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5834711283513031695, guid: f2ba740e1418e4a7385c986cfc34ec99, type: 3}
       propertyPath: m_Name
-      value: Gatito
+      value: GatitoTopDown
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5834711283513031695, guid: f2ba740e1418e4a7385c986cfc34ec99, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3696285862142420751}
   m_SourcePrefab: {fileID: 100100000, guid: f2ba740e1418e4a7385c986cfc34ec99, type: 3}
+--- !u!1 &2253478294925901475 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5834711283513031695, guid: f2ba740e1418e4a7385c986cfc34ec99, type: 3}
+  m_PrefabInstance: {fileID: 5745740377875120812}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3696285862142420751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2253478294925901475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89fb33c30984c4444b2f37f685bcca38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovimientoTopDown
+  velocidad: 4
+  normalizarDiagonal: 1
+  sprite: {fileID: 0}
+  animador: {fileID: 0}
+  animacionLado: []
+  animacionArriba: []
+  animacionAbajo: []
+  animacionQuieto: []
