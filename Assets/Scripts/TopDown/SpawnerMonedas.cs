@@ -13,8 +13,13 @@ public class SpawnerMonedas : MonoBehaviour
     [Header("Que y cuantas")]
     [SerializeField] private Moneda prefabMoneda;
 
-    [Tooltip("Cuantas hay que juntar para ganar.")]
-    [SerializeField] private int cantidad = 10;
+    [Tooltip("Cuantas hay que juntar para ganar, segun la dificultad que se " +
+             "eligio en el menu. Este es el nivel de dificultad del TopDown.")]
+    [SerializeField] private ValorPorDificultad metaDeMonedas = new ValorPorDificultad();
+
+    // Cuantas se van a repartir de verdad. Sale de metaDeMonedas al empezar, y
+    // baja si alguna no cupo en el laberinto.
+    private int cantidad;
 
     [Header("Donde")]
     [SerializeField] private AreaJugable area;
@@ -52,6 +57,9 @@ public class SpawnerMonedas : MonoBehaviour
         if (area == null) { Debug.LogError("[SpawnerMonedas] Falta asignar el AreaJugable.", this); return; }
 
         if (MovimientoTopDown.Actual != null) jugador = MovimientoTopDown.Actual.transform;
+
+        cantidad = metaDeMonedas.Actual;
+        Debug.Log($"[SpawnerMonedas] Dificultad {Dificultad.Nivel}: hay que juntar {cantidad} monedas.", this);
 
         Repartir();
     }
