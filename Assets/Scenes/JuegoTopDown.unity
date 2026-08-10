@@ -8638,6 +8638,7 @@ MonoBehaviour:
   prefabsEnemigo:
   - {fileID: 8072449649022487992, guid: 9ea8295fa6f4f4ae495920aac08c49d5, type: 3}
   - {fileID: 1591045204112857053, guid: 092a7c82277144fc4823941e2a375ff6, type: 3}
+  - {fileID: 5048114880040212399, guid: 17ca8db06ad9e4865ba165a042442d16, type: 3}
   puntosDeAparicion: []
   area: {fileID: 2000085677}
   distanciaMinimaDelJugador: 6

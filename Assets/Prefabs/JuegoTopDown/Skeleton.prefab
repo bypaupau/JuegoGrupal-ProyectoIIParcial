@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1319570121541620578}
   - component: {fileID: 1591045204112857053}
   - component: {fileID: 7389886975093118652}
+  - component: {fileID: 2368189845347510785}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -204,3 +205,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.7, y: 0.7}
   m_EdgeRadius: 0
+--- !u!114 &2368189845347510785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2360849250931887118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a161facc1ab4c0ba686c95e7722953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimacionSprites
+  animacionInicial:
+  - {fileID: -5758231261664834141, guid: 14d35e503e41546febdc1609e9ff11a0, type: 3}
+  - {fileID: -2982681959859218868, guid: 14d35e503e41546febdc1609e9ff11a0, type: 3}
+  - {fileID: 7905454227381942895, guid: 14d35e503e41546febdc1609e9ff11a0, type: 3}
+  - {fileID: 6331079080334612255, guid: 14d35e503e41546febdc1609e9ff11a0, type: 3}
+  - {fileID: -8298240164133097545, guid: 14d35e503e41546febdc1609e9ff11a0, type: 3}
+  framesPorSegundo: 8
+  enBucle: 1

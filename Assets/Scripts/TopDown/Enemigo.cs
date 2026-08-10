@@ -80,6 +80,15 @@ public class Enemigo : MonoBehaviour
             Debug.LogError("[Enemigo] No tiene Collider2D, por eso atraviesa las paredes. " +
                            "Agregale un BoxCollider2D o un CircleCollider2D.", this);
 
+        // Le pusiste frames pero no hay quien los reproduzca: el enemigo se
+        // queda con el sprite fijo del SpriteRenderer y parece que las
+        // animaciones "no funcionan". Fallaba en silencio porque
+        // ActualizarAnimacion() se sale sin decir nada cuando animador es null.
+        if (animador == null && TieneFrames())
+            Debug.LogWarning($"[Enemigo] {name} tiene sprites de animacion asignados pero no " +
+                             "tiene el componente AnimacionSprites, asi que no se va a mover " +
+                             "ninguno. Agregaselo al prefab (Add Component > Animacion Sprites).", this);
+
         if (!Mathf.Approximately(rb.gravityScale, 0f))
             Debug.LogWarning("[Enemigo] Pon Gravity Scale en 0 o el enemigo se cae.", this);
         if (!rb.freezeRotation)
@@ -149,6 +158,13 @@ public class Enemigo : MonoBehaviour
     /// arriba o de abajo, usa la de lado para todo, que con el volteo ya se ve
     /// bien en la mayoria de los sprites.
     /// </summary>
+    private bool TieneFrames()
+    {
+        return (animacionLado != null && animacionLado.Length > 0)
+            || (animacionArriba != null && animacionArriba.Length > 0)
+            || (animacionAbajo != null && animacionAbajo.Length > 0);
+    }
+
     private void ActualizarAnimacion()
     {
         if (animador == null) return;

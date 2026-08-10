@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8298767772923067834}
   - component: {fileID: 5362662376643278221}
   - component: {fileID: 8072449649022487992}
+  - component: {fileID: 1432551074054622202}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -189,3 +190,23 @@ MonoBehaviour:
   - {fileID: 4892273852717063188, guid: 709d379aa880f49b8980a916d3275919, type: 3}
   animacionArriba: []
   animacionAbajo: []
+--- !u!114 &1432551074054622202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3775807476266773058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a161facc1ab4c0ba686c95e7722953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimacionSprites
+  animacionInicial:
+  - {fileID: -5524012555753198225, guid: 709d379aa880f49b8980a916d3275919, type: 3}
+  - {fileID: -2387602798807829900, guid: 709d379aa880f49b8980a916d3275919, type: 3}
+  - {fileID: 8715297022941849105, guid: 709d379aa880f49b8980a916d3275919, type: 3}
+  - {fileID: 5022352050322670775, guid: 709d379aa880f49b8980a916d3275919, type: 3}
+  - {fileID: 4892273852717063188, guid: 709d379aa880f49b8980a916d3275919, type: 3}
+  framesPorSegundo: 8
+  enBucle: 1
