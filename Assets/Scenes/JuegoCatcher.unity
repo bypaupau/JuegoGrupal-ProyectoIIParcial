@@ -325,6 +325,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement2D
   velocidad: 6
   margen: 0.5
+--- !u!114 &923480108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923480101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf354bffc9d38ca44882c44bb089f661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Recolector
+  puntosPorBueno: 1
+  vidasSiSeJuegaSuelto: 5
 --- !u!1 &1713348013
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +497,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2610654607687311879, guid: 9d28d05cdba2fa141a6a800f684c9e12, type: 3}
       insertIndex: -1
       addedObject: {fileID: 923480102}
+    - targetCorrespondingSourceObject: {fileID: 2610654607687311879, guid: 9d28d05cdba2fa141a6a800f684c9e12, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 923480108}
   m_SourcePrefab: {fileID: 100100000, guid: 9d28d05cdba2fa141a6a800f684c9e12, type: 3}
 --- !u!1 &2062880240
 GameObject:
@@ -570,8 +587,8 @@ Transform:
   m_GameObject: {fileID: 2062880240}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0275, y: -0.9784, z: 0}
-  m_LocalScale: {x: 4.969235, y: 4.270191, z: 1}
+  m_LocalPosition: {x: 0.0466, y: -0.6902, z: 0}
+  m_LocalScale: {x: 6.1202793, y: 4.1105194, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
