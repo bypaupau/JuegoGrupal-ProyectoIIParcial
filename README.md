@@ -161,12 +161,6 @@ se importa una vez y duplicarlo lleva a dos GUIDs que se desincronizan.
 
 Las reglas completas de trabajo en equipo están en **[CONVENCIONES.md](CONVENCIONES.md)**.
 
-### Otras guías
-
-- **[CONVENCIONES.md](CONVENCIONES.md)** — reglas de Git, convenciones de arte y trampas de Unity 2D
-- **[GUIA-MENU.md](GUIA-MENU.md)** — montaje del menú y la narración
-- **[GUIA-VICTORIA.md](GUIA-VICTORIA.md)** — pantallas de victoria y derrota
-
 ---
 
 ## Cómo abrirlo
@@ -181,40 +175,6 @@ Las reglas completas de trabajo en equipo están en **[CONVENCIONES.md](CONVENCI
 
 > Para iterar sobre el menú sin ver la narración completa cada vez:
 > `GestorMenu → Menu Principal → Saltar Narracion ✓`.
-
----
-
-## Checklist del enunciado
-
-| Requisito | Estado | Dónde |
-|---|:---:|---|
-| Movimiento horizontal y vertical | ✅ | `MovimientoTopDown.cs`, `PlayerMovement2D.cs` |
-| Sprite propio + animación de movimiento | ✅ | `AnimacionSprites.cs` |
-| El jugador no sale del área visible | ✅ | `AreaJugable.cs`, clamp derivado de la cámara |
-| Recolectables generados aleatoriamente | ✅ | `SpawnerCaida.cs`, `SpawnerMonedas.cs` |
-| Obstáculos generados | ✅ | `SpawnerEnemigos.cs`, objetos malos del Catcher |
-| Recolectable desaparece y suma puntos | ✅ | `Recolector.cs`, `Moneda.cs` |
-| Obstáculo quita vida | ✅ | `DanioPorEnemigos.cs`, `Recolector.cs` |
-| Objetos creados en runtime | ✅ | `Instantiate` en los tres spawners |
-| Objetos fuera de pantalla se destruyen | ✅ | `GarbageController.cs` |
-| HUD con puntaje | ✅ | `HUDCatcher.cs` |
-| HUD con vidas | ✅ | `HudCorazones.cs` |
-| Pantalla de inicio con botón "Jugar" | ✅ | `HistoriaInicio.unity`, `MenuPrincipal.cs` |
-| Pantalla Game Over / Victoria con reiniciar | ✅ | `GestorCatcher.Reintentar()`, `PantallaVictoria.cs` |
-| Música de fondo | ✅ | `MusicaFondo.cs`, `MusicaDeEscena.cs` |
-| SFX de recolección y colisión | ✅ | `Moneda.cs`, `DanioPorEnemigos.cs` |
-| SFX de inicio, victoria y derrota | 🔜 | pendiente |
-| Niveles de dificultad (uno por integrante) | ✅ | `Dificultad.cs`, `ValorPorDificultad` |
-| Ejecutable en el repositorio | 🔜 | pendiente |
-| Documento de diseño (1-2 páginas) | 🔜 | pendiente |
-| Video de 1-2 minutos | 🔜 | pendiente |
-| *(opcional)* Animaciones personalizadas | ✅ | `AnimacionSprites.cs`, `AnimacionImagenUI.cs` |
-| *(opcional)* High score con PlayerPrefs | 🔜 | `PlayerPrefs` ya se usa para la dificultad |
-
-### Pendiente además
-
-- [ ] Encadenar la escena `Final` al ganar el Catcher (`GestorCatcher.Ganar()`)
-- [ ] Asignar `Meta De Monedas` por dificultad en `SpawnerMonedas`
 
 ---
 
