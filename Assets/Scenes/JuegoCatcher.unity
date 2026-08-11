@@ -1233,6 +1233,8 @@ MonoBehaviour:
   mensajeGanaste: {fileID: 2051634598}
   panelGameOver: {fileID: 901308331}
   escenaMenu: HistoriaInicio
+  escenaFinal: Final
+  esperaAntesDelFinal: 2.5
 --- !u!4 &1581414670
 Transform:
   m_ObjectHideFlags: 0
@@ -1434,9 +1436,9 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 658508437}
   - {fileID: 901308332}
   - {fileID: 745260934}
-  - {fileID: 658508437}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

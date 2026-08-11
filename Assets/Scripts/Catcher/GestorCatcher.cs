@@ -19,6 +19,13 @@ public class GestorCatcher : MonoBehaviour
     [Header("Escenas")]
     [SerializeField] private string escenaMenu = "HistoriaInicio";
 
+    [Tooltip("La pantalla de cierre de la aventura. Tiene que estar en Build Profiles.")]
+    [SerializeField] private string escenaFinal = "Final";
+
+    [Tooltip("Segundos que se queda el '¡Ganaste!' en pantalla antes de pasar " +
+             "a la escena Final. Dale tiempo a leerlo entero.")]
+    [SerializeField] private float esperaAntesDelFinal = 2.5f;
+
     private int recogidas;
     private bool terminado;
 
@@ -53,14 +60,33 @@ public class GestorCatcher : MonoBehaviour
             fundidoVictoria.Aparecer(MostrarGanaste);
         else
             MostrarGanaste();
-
-        // (Cargar la escena Final se deja pendiente, lo detallas luego.)
     }
 
     private void MostrarGanaste()
     {
         if (mensajeGanaste != null)
             mensajeGanaste.SetActive(true);
+
+        // La cuenta atras arranca AQUI y no en Ganar() a proposito: este metodo
+        // es el callback del fundido, asi que se ejecuta cuando la pantalla ya
+        // esta en negro y el mensaje es visible. Si se lanzara desde Ganar(),
+        // correria en paralelo al fundido y el jugador se comeria parte de la
+        // espera mirando una pantalla que todavia se esta oscureciendo.
+        StartCoroutine(IrAlFinal());
+    }
+
+    private System.Collections.IEnumerator IrAlFinal()
+    {
+        yield return new WaitForSeconds(esperaAntesDelFinal);
+
+        if (string.IsNullOrEmpty(escenaFinal))
+        {
+            Debug.LogWarning("[GestorCatcher] No hay escena final asignada, " +
+                             "asi que la aventura se queda aqui.", this);
+            yield break;
+        }
+
+        SceneManager.LoadScene(escenaFinal);
     }
 
     private void Perder()
