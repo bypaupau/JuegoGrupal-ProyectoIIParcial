@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Decide cuando se acaba el laberinto y con que resultado.
@@ -7,9 +8,8 @@ using UnityEngine;
 ///   victoria -> SpawnerMonedas.AlGanar, cuando junta todas las monedas
 ///   derrota  -> Partida.AlPerder, cuando se queda sin vidas
 ///
-/// De momento solo para la partida y avisa por Console. Cuando montes las
-/// pantallas de Victoria y Game Over, se enganchan aqui: este es el unico
-/// sitio que sabe que la partida termino.
+/// Este es el unico sitio del minijuego que sabe que la partida termino, asi
+/// que las dos pantallas de final se enganchan aqui.
 ///
 /// Montaje: un GameObject vacio en la escena con este script.
 /// </summary>
@@ -24,6 +24,14 @@ public class GestorTopDown : MonoBehaviour
              "Si lo dejas vacio se busca solo en la escena.")]
     [SerializeField] private PantallaVictoria pantallaVictoria;
 
+    [Tooltip("El panel 'Game Over' con sus botones. Empieza APAGADO. " +
+             "Mismo montaje que el del Catcher.")]
+    [SerializeField] private GameObject panelGameOver;
+
+    [Header("Escenas")]
+    [Tooltip("A donde lleva el boton 'Menu' del Game Over.")]
+    [SerializeField] private string escenaMenu = "HistoriaInicio";
+
     /// <summary>True cuando ya se gano o se perdio.</summary>
     public bool Terminado { get; private set; }
 
@@ -37,6 +45,11 @@ public class GestorTopDown : MonoBehaviour
         // silencio al ganar, cuando ya es tarde para darse cuenta.
         if (pantallaVictoria == null)
             pantallaVictoria = FindAnyObjectByType<PantallaVictoria>(FindObjectsInactive.Include);
+
+        // Por si quedo encendido de la ultima vez que lo tocaste en el editor.
+        // Es facil dejarselo activado mientras lo montas y no darse cuenta
+        // hasta que arrancas la partida con el Game Over ya puesto.
+        if (panelGameOver != null) panelGameOver.SetActive(false);
     }
 
     private void OnEnable()
@@ -85,6 +98,12 @@ public class GestorTopDown : MonoBehaviour
         Debug.Log($"[GestorTopDown] DERROTA. Puntaje {Partida.Puntaje}.", this);
 
         Detener();
+
+        if (panelGameOver != null)
+            panelGameOver.SetActive(true);
+        else
+            Debug.LogWarning("[GestorTopDown] No hay panel de Game Over asignado, " +
+                             "asi que al perder no aparece nada.", this);
     }
 
     private void Detener()
@@ -127,5 +146,27 @@ public class GestorTopDown : MonoBehaviour
             var rbEnemigo = enemigo.GetComponent<Rigidbody2D>();
             if (rbEnemigo != null) rbEnemigo.linearVelocity = Vector2.zero;
         }
+    }
+
+    // --- Botones del Game Over (se enganchan al OnClick en el Inspector) ---
+    //
+    // Mismos nombres que en GestorCatcher a proposito: los dos minijuegos
+    // terminan igual, asi que el panel se monta de la misma forma en los dos
+    // y no hay que recordar dos convenciones distintas.
+
+    /// <summary>Vuelve a empezar el laberinto desde cero.</summary>
+    public void Reintentar()
+    {
+        // Recargar la escena deja Partida sin vidas y con EnCurso en false.
+        // No pasa nada: DanioPorEnemigos vuelve a llamar a Partida.Comenzar()
+        // en su Start si ve que no hay partida viva, igual que hace el
+        // Recolector en el Catcher.
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    /// <summary>Deja el minijuego y vuelve al menu principal.</summary>
+    public void IrAlMenu()
+    {
+        SceneManager.LoadScene(escenaMenu);
     }
 }
