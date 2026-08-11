@@ -19,6 +19,11 @@ public class GestorTopDown : MonoBehaviour
     [SerializeField] private SpawnerMonedas monedas;
     [SerializeField] private SpawnerEnemigos enemigos;
 
+    [Header("Pantallas de final")]
+    [Tooltip("La secuencia de '¡Ganaste!' que lleva al siguiente minijuego. " +
+             "Si lo dejas vacio se busca solo en la escena.")]
+    [SerializeField] private PantallaVictoria pantallaVictoria;
+
     /// <summary>True cuando ya se gano o se perdio.</summary>
     public bool Terminado { get; private set; }
 
@@ -26,6 +31,12 @@ public class GestorTopDown : MonoBehaviour
     {
         if (monedas == null) monedas = FindAnyObjectByType<SpawnerMonedas>();
         if (enemigos == null) enemigos = FindAnyObjectByType<SpawnerEnemigos>();
+
+        // Include por si esta montada mal y su objeto quedo apagado: asi
+        // PantallaVictoria puede avisarlo por Console en vez de fallar en
+        // silencio al ganar, cuando ya es tarde para darse cuenta.
+        if (pantallaVictoria == null)
+            pantallaVictoria = FindAnyObjectByType<PantallaVictoria>(FindObjectsInactive.Include);
     }
 
     private void OnEnable()
@@ -52,6 +63,18 @@ public class GestorTopDown : MonoBehaviour
                   $"vidas restantes {Partida.Vidas}.", this);
 
         Detener();
+
+        // Solo al ganar. En la derrota se deja a proposito que los enemigos
+        // sigan rondando al gatito caido, que es como estaba antes.
+        Paralizar();
+
+        // Primero paralizar, despues mostrar. Si fuera al reves, los enemigos
+        // seguirian moviendose un frame por detras del fundido.
+        if (pantallaVictoria != null)
+            pantallaVictoria.Mostrar();
+        else
+            Debug.LogWarning("[GestorTopDown] No hay PantallaVictoria en la escena, " +
+                             "asi que la partida se queda aqui parada.", this);
     }
 
     private void Perder()
@@ -66,10 +89,10 @@ public class GestorTopDown : MonoBehaviour
 
     private void Detener()
     {
+        // Esto solo corta las apariciones nuevas, no a los que ya andan sueltos.
+        // De esos se encarga Paralizar(), y solo en la victoria.
         if (enemigos != null) enemigos.Detener();
 
-        // El gatito se queda quieto, pero los enemigos que ya estaban siguen
-        // moviendose. Es a proposito: se ve mas vivo que congelar la escena.
         var gatito = MovimientoTopDown.Actual;
         if (gatito == null) return;
 
@@ -79,5 +102,30 @@ public class GestorTopDown : MonoBehaviour
         // velocidad que le pusimos y el gatito seguiria deslizandose solo.
         var rb = gatito.GetComponent<Rigidbody2D>();
         if (rb != null) rb.linearVelocity = Vector2.zero;
+    }
+
+    /// <summary>
+    /// Deja clavados a los enemigos que ya estaban en la arena.
+    ///
+    /// No se usa Time.timeScale = 0, que seria lo obvio: eso tambien congelaria
+    /// el fundido y la maquina de escribir de PantallaVictoria, porque esperan
+    /// con WaitForSeconds y ese si va con el reloj escalado. Apagando scripts
+    /// se para lo que molesta y sigue funcionando lo que tiene que animarse.
+    /// </summary>
+    private void Paralizar()
+    {
+        if (enemigos == null) return;
+
+        // SpawnerEnemigos crea cada enemigo como hijo suyo, asi que se piden
+        // ahi en vez de rastrear la escena entera. Sale mas barato, solo coge
+        // los que salieron de este spawner, y de paso evita FindObjectsByType,
+        // cuyas sobrecargas fueron quedando obsoletas en Unity 6.5.
+        foreach (var enemigo in enemigos.GetComponentsInChildren<Enemigo>())
+        {
+            enemigo.enabled = false;
+
+            var rbEnemigo = enemigo.GetComponent<Rigidbody2D>();
+            if (rbEnemigo != null) rbEnemigo.linearVelocity = Vector2.zero;
+        }
     }
 }

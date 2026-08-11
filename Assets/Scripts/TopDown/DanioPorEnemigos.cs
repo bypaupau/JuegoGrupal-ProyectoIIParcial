@@ -33,6 +33,14 @@ public class DanioPorEnemigos : MonoBehaviour
     [Tooltip("El que parpadea. Si lo dejas vacio se busca solo.")]
     [SerializeField] private SpriteRenderer sprite;
 
+    [Header("Sonido")]
+    [Tooltip("Opcional. Suena cada vez que un enemigo lo toca.")]
+    [SerializeField] private AudioClip sonidoGolpe;
+
+    [Range(0f, 1f)]
+    [Tooltip("Volumen del golpe, de 0 a 1.")]
+    [SerializeField] private float volumenGolpe = 1f;
+
     [Header("Pruebas")]
     [Tooltip("Vidas que se dan si le das Play directamente a esta escena sin " +
              "pasar por el menu. En una partida de verdad manda el selector.")]
@@ -47,15 +55,34 @@ public class DanioPorEnemigos : MonoBehaviour
     private readonly List<Collider2D> tocados = new List<Collider2D>();
     private ContactFilter2D filtro;
 
+    // Por donde sale el sonido del golpe. Se crea sola si no hay ninguna.
+    private AudioSource fuente;
+
     private bool EsInvulnerable => Time.time < invulnerableHasta;
 
     private void Awake()
     {
         if (sprite == null) sprite = GetComponentInChildren<SpriteRenderer>();
 
-        // NoFilter: interesan todos los colliders, incluidos los triggers.
+        // noFilter: interesan todos los colliders, incluidos los triggers.
         // Ya se descarta lo que no sea enemigo mirando el componente.
-        filtro = new ContactFilter2D().NoFilter();
+        //
+        // Es la propiedad estatica, no el metodo NoFilter() de toda la vida:
+        // ese quedo obsoleto en Unity 6.5.
+        filtro = ContactFilter2D.noFilter;
+
+        // Aqui si conviene un AudioSource propio, al reves que en Moneda: el
+        // gatito no se destruye al recibir el golpe, asi que el componente
+        // sigue vivo para terminar de sonar.
+        fuente = GetComponent<AudioSource>();
+        if (fuente == null) fuente = gameObject.AddComponent<AudioSource>();
+
+        // Sin esto sonaria una vez al arrancar la escena.
+        fuente.playOnAwake = false;
+
+        // 0 = sonido plano, se oye igual este donde este el gatito. Si se deja
+        // en 3D, el volumen cambia segun lo lejos que ande de la camara.
+        fuente.spatialBlend = 0f;
     }
 
     private void Start()
@@ -96,6 +123,10 @@ public class DanioPorEnemigos : MonoBehaviour
     private void Golpe()
     {
         invulnerableHasta = Time.time + segundosInvulnerable;
+
+        // PlayOneShot y no Play: se pueden encimar varios golpes sin que uno
+        // corte al anterior, y no pisa el clip que tenga puesto el AudioSource.
+        if (sonidoGolpe != null) fuente.PlayOneShot(sonidoGolpe, volumenGolpe);
 
         bool seAcabo = Partida.QuitarVida();
 

@@ -144,5 +144,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Moneda
   puntos: 1
-  sonido: {fileID: 0}
+  sonido: {fileID: 8300000, guid: 9fe9edf0b572f44689223513bd7c233e, type: 3}
   efectoAlRecoger: {fileID: 0}
