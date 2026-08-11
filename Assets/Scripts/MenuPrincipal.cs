@@ -25,14 +25,25 @@ public class MenuPrincipal : MonoBehaviour
              "y el gatito. Se mantienen ocultos durante la narracion.")]
     [SerializeField] private GameObject mundoMenu;
 
+    [Header("Titulo / logo")]
+    [Tooltip("Componente LogoTitulo del Text (TMP) del titulo. Anima las letras " +
+             "una a una. Si lo dejas vacio, el titulo sale de golpe con el menu.")]
+    [SerializeField] private LogoTitulo logoTitulo;
+
+    [Tooltip("Segundos que espera el titulo desde que el menu se hace visible. " +
+             "Un respiro corto para que primero se asiente el fondo.")]
+    [SerializeField] private float retrasoTitulo = 0.5f;
+
     [Header("Aparicion de los botones")]
     [Tooltip("Componente AparecerDeslizando del GrupoBotones. Va aparte del titulo " +
              "para que los botones entren despues. La opacidad inicial y el " +
              "desplazamiento se configuran en ese componente, no aqui.")]
     [SerializeField] private AparecerDeslizando aparicionBotones;
 
-    [Tooltip("Segundos que tardan los botones en aparecer una vez visible el menu.")]
-    [SerializeField] private float retrasoBotones = 3f;
+    [Tooltip("Segundos que esperan los botones DESDE QUE EL LOGO TERMINA de " +
+             "montarse. Antes se contaba desde que el menu era visible, y por " +
+             "eso el titulo y los botones se pisaban.")]
+    [SerializeField] private float retrasoBotones = 0.6f;
 
     [Header("Musica")]
     [Tooltip("El MusicaDeEscena del menu, con 'Arrancar Sola' DESMARCADO. Se " +
@@ -129,6 +140,11 @@ public class MenuPrincipal : MonoBehaviour
 
     private void MostrarMenu()
     {
+        // Hay que leerlo ANTES de marcarlo. Si el jugador ya estuvo aqui y
+        // vuelve desde un minijuego, no le repetimos la intro del logo: se
+        // la ha visto ya y solo quiere volver a pulsar JUGAR.
+        bool primeraVezEnElMenu = !yaSeVioLaNarracion;
+
         yaSeVioLaNarracion = true;
         if (mundoMenu != null) mundoMenu.SetActive(true);
         panelMenu.SetActive(true);
@@ -138,19 +154,48 @@ public class MenuPrincipal : MonoBehaviour
         // es el mismo clip y lo deja seguir.
         if (musicaMenu != null) musicaMenu.Reproducir();
 
-        if (aparicionBotones != null)
+        if (!primeraVezEnElMenu)
         {
-            // Los dejamos invisibles, desplazados y sin poder recibir clicks
-            // hasta que terminen de entrar. Asi nadie le da a un boton fantasma.
-            aparicionBotones.Preparar();
-            StartCoroutine(AparecerBotones());
+            // Vuelta desde un minijuego: todo puesto de una, sin ceremonia.
+            if (logoTitulo != null) logoTitulo.MostrarYa();
+            return;
         }
+
+        // Ambos se dejan ocultos en el MISMO frame en que se enciende el panel.
+        // Si esperaramos a la corrutina se veria un fogonazo de un frame con
+        // el titulo y los botones ya puestos.
+        if (logoTitulo != null) logoTitulo.Preparar();
+        if (aparicionBotones != null) aparicionBotones.Preparar();
+
+        StartCoroutine(SecuenciaDeEntrada());
     }
 
-    private System.Collections.IEnumerator AparecerBotones()
+    /// <summary>
+    /// Coreografia del menu: primero respira el fondo, luego se monta el
+    /// titulo letra a letra, y solo cuando ese ha terminado entran los botones.
+    ///
+    /// Encadenar por callback en vez de por temporizadores sueltos evita que
+    /// los botones se solapen con el logo si algun dia alargas la cascada.
+    /// </summary>
+    private System.Collections.IEnumerator SecuenciaDeEntrada()
     {
-        yield return new WaitForSeconds(retrasoBotones);
-        aparicionBotones.Aparecer();
+        if (logoTitulo != null)
+        {
+            if (retrasoTitulo > 0f)
+                yield return new WaitForSeconds(retrasoTitulo);
+
+            bool logoListo = false;
+            logoTitulo.Aparecer(() => logoListo = true);
+            while (!logoListo) yield return null;
+        }
+
+        if (aparicionBotones != null)
+        {
+            if (retrasoBotones > 0f)
+                yield return new WaitForSeconds(retrasoBotones);
+
+            aparicionBotones.Aparecer();
+        }
     }
 
     // --- Metodos para enganchar a los botones (OnClick del Inspector) ---
