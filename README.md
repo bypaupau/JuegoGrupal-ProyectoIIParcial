@@ -37,19 +37,21 @@ el laberinto no lo recuperas en el Catcher.
 
 ### 🌿 Laberinto (TopDown)
 
-Junta todas las monedas de un laberinto generado al azar mientras esquivas a
-los enemigos que van apareciendo.
+Junta todas las monedas del laberinto mientras esquivas a los enemigos que van
+apareciendo.
 
 | Acción | Tecla |
 |---|---|
 | Moverse (8 direcciones) | `W` `A` `S` `D` o flechas |
 
-- **Monedas** → suman puntaje. Hay que juntarlas **todas** para ganar.
+- **Monedas** → suman puntaje. Hay que juntarlas **todas** para ganar. Se
+  reparten en posiciones libres al azar, nunca dentro de un muro ni pegadas al
+  gatito.
 - **Enemigos** → te quitan una vida al tocarte. Deambulan al azar, pero si te
-  ven a menos de cierta distancia te persiguen; cuando te pierden, vuelven a
-  deambular.
-- El laberinto es **perfecto**: existe un único camino entre dos puntos
-  cualesquiera, así que no hay atajos y toca devolverse.
+  ven a menos de cierta distancia y no hay pared en medio te persiguen; cuando
+  te pierden, vuelven a deambular.
+- Al recibir daño hay unos segundos de **invulnerabilidad con parpadeo**, para
+  que dos enemigos juntos no te maten en cadena.
 
 ### 🍎 Catcher
 
@@ -70,10 +72,11 @@ Se elige **una sola vez**, en el menú, y aplica a toda la partida.
 | | Fácil | Difícil |
 |---|:---:|:---:|
 | Vidas iniciales | 5 | 3 |
-| Monedas para ganar el laberinto | \* | \* |
+| Monedas para ganar el laberinto | 5 | 1 ⚠️ |
 | Objetos buenos para ganar el Catcher | 10 | 15 |
 
-\* Configurable desde el Inspector en `SpawnerMonedas → Meta De Monedas`.
+⚠️ Los valores del laberinto están **invertidos**: en Difícil se gana con menos
+monedas que en Fácil. Pendiente de corregir en `SpawnerMonedas → Meta De Monedas`.
 
 ---
 
@@ -122,13 +125,17 @@ aun así los dos cuentan lo mismo. Cada quien hizo el suyo sin tocar el del otro
 > `[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]`,
 > que corre antes de que cargue ninguna escena.
 
-### Generación del laberinto
+### El escenario del laberinto
 
-`GeneradorLaberinto` usa un **recursive backtracker con pila explícita** (sin
-recursión, para no reventar el stack en laberintos grandes). Produce un
-laberinto perfecto y lo pinta sobre dos Tilemaps, resolviendo la pieza correcta
-de cada muro según sus ocho vecinos — el mismo criterio que aplicaría un Rule
-Tile, pero calculado en runtime.
+El mapa está pintado a mano sobre dos Tilemaps (suelo y paredes). El de paredes
+lleva un `Tilemap Collider 2D`, y eso es lo único que impide que el gatito las
+atraviese. Los límites del área los define `AreaJugable`, que además usan la
+cámara para no encuadrar el vacío de afuera y los spawners para no colocar nada
+dentro de un muro.
+
+> Existe un `GeneradorLaberinto.cs` que genera laberintos en runtime con un
+> *recursive backtracker*, pero **no está conectado a ninguna escena**. Quedó
+> como trabajo exploratorio.
 
 ### Escenas
 
