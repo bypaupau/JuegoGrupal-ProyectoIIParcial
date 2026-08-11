@@ -58,6 +58,11 @@ public class LogoTitulo : MonoBehaviour
              "valores altos = efecto bandera.")]
     [SerializeField] private float desfaseEntreLetras = 0.3f;
 
+    [Header("Salida")]
+    [Tooltip("Lo que tarda en desvanecerse al entrar a un submenu. " +
+             "Engancha Desvanecer() al OnClick del boton JUGAR.")]
+    [SerializeField] private float duracionSalida = 0.3f;
+
     private TMP_Text texto;
 
     // Copia intacta de la malla recien generada. Todo se calcula SOBRE esto,
@@ -73,6 +78,18 @@ public class LogoTitulo : MonoBehaviour
     private void Awake()
     {
         texto = GetComponent<TMP_Text>();
+
+        // Un titulo es decoracion: nunca debe interceptar clicks.
+        //
+        // El RectTransform de un texto es bastante mas grande que sus letras y
+        // aqui se solapa con GrupoBotones. Como el Titulo es hermano POSTERIOR
+        // en la jerarquia, se dibuja encima y recibe el raycast primero: si
+        // sigue siendo raycast target, se traga las pulsaciones de JUGAR y el
+        // boton parece roto aunque su OnClick este bien puesto.
+        //
+        // Se apaga aqui y no solo en el Inspector para que el bug no pueda
+        // volver si alguien mueve o reusa el titulo mas adelante.
+        texto.raycastTarget = false;
     }
 
     /// <summary>
@@ -118,6 +135,38 @@ public class LogoTitulo : MonoBehaviour
         entradaTerminada = true;
 
         if (flotarAlTerminar) rutinaActual = StartCoroutine(RutinaFlotacion());
+    }
+
+    /// <summary>
+    /// Funde el titulo hasta invisible. Pensado para engancharlo directamente
+    /// al OnClick del boton JUGAR: al abrirse el panel de dificultad, el
+    /// titulo se quita de en medio en vez de quedar debajo de los botones.
+    ///
+    /// Sin parametros a proposito: el OnClick del Inspector solo lista
+    /// metodos publicos, void y con cero o un argumento simple.
+    /// </summary>
+    public void Desvanecer()
+    {
+        if (rutinaActual != null) StopCoroutine(rutinaActual);
+
+        // Por si alguien lo llama antes de que el titulo haya llegado a
+        // animarse: sin malla capturada no sabriamos cuantas letras hay.
+        if (totalCaracteres == 0) CapturarMalla();
+
+        // Corta la flotacion. Si siguiera viva seguiria escribiendo vertices
+        // mientras se funde, y el titulo temblaria al desaparecer.
+        entradaTerminada = false;
+
+        rutinaActual = StartCoroutine(RutinaSalida());
+    }
+
+    /// <summary>
+    /// Lo trae de vuelta a opacidad total. Engancha esto al boton de cancelar
+    /// del panel de dificultad, si algun dia le pones uno.
+    /// </summary>
+    public void Reaparecer()
+    {
+        MostrarYa();
     }
 
     // ------------------------------------------------------------------
@@ -184,6 +233,32 @@ public class LogoTitulo : MonoBehaviour
         alTerminar?.Invoke();
 
         if (flotarAlTerminar) rutinaActual = StartCoroutine(RutinaFlotacion());
+    }
+
+    private IEnumerator RutinaSalida()
+    {
+        // Se funde el titulo entero de golpe, no letra a letra. Una salida
+        // en cascada haria esperar al jugador que ya decidio que quiere jugar:
+        // las entradas pueden lucirse, las salidas tienen que quitarse de en
+        // medio rapido.
+        float t = 0f;
+
+        while (t < duracionSalida)
+        {
+            t += Time.deltaTime;
+            float alfa = 1f - Mathf.Clamp01(t / duracionSalida);
+
+            for (int i = 0; i < totalCaracteres; i++)
+                PonerAlfaDeCaracter(i, alfa);
+
+            SubirMalla();
+            yield return null;
+        }
+
+        for (int i = 0; i < totalCaracteres; i++)
+            PonerAlfaDeCaracter(i, 0f);
+
+        SubirMalla();
     }
 
     private IEnumerator RutinaFlotacion()
