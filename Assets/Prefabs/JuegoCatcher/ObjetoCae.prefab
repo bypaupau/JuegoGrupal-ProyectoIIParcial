@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoQueCae
   velocidadCaida: 3
+  esMalo: 0
 --- !u!50 &7150520916941521617
 Rigidbody2D:
   serializedVersion: 5
