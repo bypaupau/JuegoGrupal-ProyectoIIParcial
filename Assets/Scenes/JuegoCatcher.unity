@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnerCaida
   objetosPrefab:
   - {fileID: 3028112484279886924, guid: 191cde0762fbcb04ebc3ca9e0198a890, type: 3}
+  - {fileID: 5627187170371763674, guid: e9950e326b2cc4a49870b68f170ebfa5, type: 3}
   tiempoMinimo: 0.7
   tiempoMaximo: 1.5
   rangoX: 7
