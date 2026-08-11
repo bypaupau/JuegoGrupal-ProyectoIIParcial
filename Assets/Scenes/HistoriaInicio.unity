@@ -1707,6 +1707,7 @@ MonoBehaviour:
   mundoMenu: {fileID: 1150857277}
   aparicionBotones: {fileID: 1143824494}
   retrasoBotones: 3
+  musicaMenu: {fileID: 1702342297}
   escenaPrimerMinijuego: JuegoTopDown
   saltarNarracion: 0
   siempreNarrar: 0
@@ -1741,6 +1742,9 @@ MonoBehaviour:
   ocultarMientrasElige:
   - {fileID: 1143824490}
   aparicion: {fileID: 1291770811}
+  vidasIniciales:
+    facil: 5
+    dificil: 3
   escenaSiguiente: JuegoTopDown
   cargarEscenaAlElegir: 1
 --- !u!1 &968638041
@@ -2945,6 +2949,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
+--- !u!1 &1702342296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1702342298}
+  - component: {fileID: 1702342297}
+  m_Layer: 0
+  m_Name: Musica
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1702342297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702342296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81dcf0972ef7f4fb79dbe91fe47c0d5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicaDeEscena
+  musica: {fileID: 8300000, guid: 053fd03c0b7d04cb0ad76d871dff04b1, type: 3}
+  volumen: 0.591
+  fadeIn: 1.5
+  fadeOut: 1.5
+  arrancarSola: 0
+--- !u!4 &1702342298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702342296}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 873.6146, y: 527.74536, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1799887625
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,3 +3499,4 @@ SceneRoots:
   - {fileID: 968638044}
   - {fileID: 1150857278}
   - {fileID: 947379618}
+  - {fileID: 1702342298}

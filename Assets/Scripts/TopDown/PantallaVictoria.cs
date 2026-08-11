@@ -51,6 +51,14 @@ public class PantallaVictoria : MonoBehaviour
     [Tooltip("Segundos entre el negro y la primera letra.")]
     [SerializeField] private float pausaAntesDelTexto = 0.8f;
 
+    [Header("Musica")]
+    [Tooltip("Segundos que tarda la musica del laberinto en apagarse, a la vez " +
+             "que la pantalla se va a negro. Se apaga AQUI y no al cambiar de " +
+             "escena porque toda la secuencia de victoria pasa dentro de la " +
+             "misma escena: si se esperara al LoadScene, la cancion seguiria " +
+             "sonando durante todo el texto. Pon 0 para no tocar la musica.")]
+    [SerializeField] private float fadeMusica = 2f;
+
     [Header("El paseo final")]
     [Tooltip("Lo que tarda el gatito en cruzar la pantalla entera, de borde a borde.")]
     [SerializeField] private float duracionPaseo = 3f;
@@ -121,6 +129,9 @@ public class PantallaVictoria : MonoBehaviour
 
         // Todo apagado menos el negro: el gatito y el texto entran despues.
         if (gatito != null) gatito.SetActive(false);
+
+        // La musica se va con la imagen, no despues.
+        if (fadeMusica > 0f) MusicaFondo.Apagar(fadeMusica);
 
         // El fundido arranca desde transparente, si no el corte a negro seria seco.
         if (fundidoNegro != null)

@@ -34,6 +34,12 @@ public class MenuPrincipal : MonoBehaviour
     [Tooltip("Segundos que tardan los botones en aparecer una vez visible el menu.")]
     [SerializeField] private float retrasoBotones = 3f;
 
+    [Header("Musica")]
+    [Tooltip("El MusicaDeEscena del menu, con 'Arrancar Sola' DESMARCADO. Se " +
+             "dispara aqui y no en su propio Start para que la narracion quede " +
+             "en silencio y la cancion entre con el menu.")]
+    [SerializeField] private MusicaDeEscena musicaMenu;
+
     [Header("Escenas")]
     [SerializeField] private string escenaPrimerMinijuego = "JuegoTopDown";
 
@@ -126,6 +132,11 @@ public class MenuPrincipal : MonoBehaviour
         yaSeVioLaNarracion = true;
         if (mundoMenu != null) mundoMenu.SetActive(true);
         panelMenu.SetActive(true);
+
+        // La musica entra aqui, con el menu ya visible. Si el jugador vuelve
+        // al menu desde un minijuego no se reinicia: MusicaFondo detecta que
+        // es el mismo clip y lo deja seguir.
+        if (musicaMenu != null) musicaMenu.Reproducir();
 
         if (aparicionBotones != null)
         {
