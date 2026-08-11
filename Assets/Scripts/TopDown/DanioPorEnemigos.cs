@@ -64,9 +64,12 @@ public class DanioPorEnemigos : MonoBehaviour
     {
         if (sprite == null) sprite = GetComponentInChildren<SpriteRenderer>();
 
-        // NoFilter: interesan todos los colliders, incluidos los triggers.
+        // noFilter: interesan todos los colliders, incluidos los triggers.
         // Ya se descarta lo que no sea enemigo mirando el componente.
-        filtro = new ContactFilter2D().NoFilter();
+        //
+        // Es la propiedad estatica, no el metodo NoFilter() de toda la vida:
+        // ese quedo obsoleto en Unity 6.5.
+        filtro = ContactFilter2D.noFilter;
 
         // Aqui si conviene un AudioSource propio, al reves que en Moneda: el
         // gatito no se destruye al recibir el golpe, asi que el componente
